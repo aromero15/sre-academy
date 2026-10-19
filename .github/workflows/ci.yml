@@ -35,7 +35,7 @@ jobs:
           python -m pytest -v
   
   test-lint:
-    name: Run Python Tests
+    name: Run PyLint
     runs-on: ubuntu-latest
 
     steps:
