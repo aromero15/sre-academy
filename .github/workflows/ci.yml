@@ -32,6 +32,23 @@ jobs:
         working-directory: app
         run: |
           python -m pytest -v
+  test-calculator:
+    name: Run Calculator Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run unit tests
+        working-directory: app
+        run: |
+          python -m unittest test_calculator.py
 
   deploy-staging:
     name: Deploy to Staging (Simulation)
