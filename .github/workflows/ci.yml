@@ -2,9 +2,9 @@ name: SRE Academy - CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +32,7 @@ jobs:
         working-directory: app
         run: |
           python -m pytest -v
+  
   test-calculator:
     name: Run Calculator Tests
     runs-on: ubuntu-latest
