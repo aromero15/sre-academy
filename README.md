@@ -19,6 +19,3 @@ Al llegar al laboratorio de CI, restablece `ci.yml` y borra `hola.yml` si lo des
 
 ## Fallo intencional
 En `app/test_app.py`, modifica `assert response.status_code == 200` a `== 500`, haz commit y push. Revisa Actions; luego restaura 200.
-
-## Advertencias
-No usar credenciales reales ni activar despliegues en servidores de producción. Dependencias sin lockfile por simplicidad didáctica: para producción fija versiones, controla permisos y revisa actualizaciones de actions.
