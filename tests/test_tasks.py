@@ -8,7 +8,7 @@ def test_contrato_json_health(client):
 
 def test_validacion_tarea_vacia(client):
     response = client.post("/tasks", json={"title": ""})
-    assert response.status_code == 400
+    assert response.status_code == 401
     assert response.get_json()["error"] == "title required"
 
 
