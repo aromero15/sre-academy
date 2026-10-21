@@ -1,10 +1,24 @@
-# SRE Academy App — laboratorio CI/CD
+# SRE Academy — Aplicación integrada con CI/CD
 
-Una aplicación Flask con cuatro módulos de negocio/infraestructura dentro de **un único proyecto**, una sola configuración de dependencias y un solo Dockerfile.
+Una sola API Flask con cuatro módulos bajo `services/`: calculadora, tareas, configuración y monitor. Los tests están en `tests/`.
 
-- `services/calculator.py`: descuentos y precios.
-- `services/tasks.py`: gestión de tareas expuesta por la API.
-- `services/configuration.py`: validación de JSON y configuración.
-- `services/monitor.py`: validación de estado HTTP y latencia con dependencias simulables (no hace llamadas reales en tests).
+## Pipelines incluidos
 
-Consulta **Instructions.md** para realizar la actividad en GitHub Actions. Los workflows `pr.yml` y `ci.yml` no vienen incluidos para que los estudiantes los creen.
+| Evento | Workflow | Comportamiento |
+|---|---|---|
+| Pull Request hacia `main` | `.github/workflows/pr.yml` | Instala dependencias y ejecuta pytest |
+| Push a `main` | `.github/workflows/ci.yml` | pytest → Docker build → smoke test HTTP → staging simulado → production simulada |
+
+Consulta [Instructions.md](Instructions.md) para uso y ejercicios.
+
+## Desarrollo local
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+bash scripts/test.sh
+python app.py
+```
+
+Endpoints: `GET /health`, `POST /calculate`, `POST /tasks`, `GET /tasks/{id}`, `GET /config`.
