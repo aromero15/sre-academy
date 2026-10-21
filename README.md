@@ -1,21 +1,10 @@
-# Laboratorio introductorio de CI/CD con GitHub Actions
+# SRE Academy App — laboratorio CI/CD
 
-Aplicación Flask mínima con dos endpoints y pruebas pytest. El despliegue de staging **solo se simula**.
+Una aplicación Flask con cuatro módulos de negocio/infraestructura dentro de **un único proyecto**, una sola configuración de dependencias y un solo Dockerfile.
 
-## Local
-```bash
-python3 -m venv .venv
-source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
-python -m pip install -r app/requirements.txt
-cd app
-python -m pytest -v
-python app.py
-```
-En otra terminal: `curl http://127.0.0.1:8080/health`.
+- `services/calculator.py`: descuentos y precios.
+- `services/tasks.py`: gestión de tareas expuesta por la API.
+- `services/configuration.py`: validación de JSON y configuración.
+- `services/monitor.py`: validación de estado HTTP y latencia con dependencias simulables (no hace llamadas reales en tests).
 
-## Para comenzar sin staging
-Renombra `.github/workflows/ci.yml` a `ci.yml.desactivado` antes de la primera práctica y copia `.github/workflows/01-hola.yml.example` a `.github/workflows/hola.yml`.
-Al llegar al laboratorio de CI, restablece `ci.yml` y borra `hola.yml` si lo deseas.
-
-## Fallo intencional
-En `app/test_app.py`, modifica `assert response.status_code == 200` a `== 500`, haz commit y push. Revisa Actions; luego restaura 200.
+Consulta **Instructions.md** para realizar la actividad en GitHub Actions. Los workflows `pr.yml` y `ci.yml` no vienen incluidos para que los estudiantes los creen.
