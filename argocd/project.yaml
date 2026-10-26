@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sre-project
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: SRE GitOps Project for multi-environment deployments
+
+  sourceRepos:
+    - https://github.com/aromero15/sre-academy
+
+  destinations:
+    - namespace: application
+      server: https://kubernetes.default.svc
+    - namespace: dev
+      server: https://kubernetes.default.svc
+    - namespace: staging
+      server: https://kubernetes.default.svc
+    - namespace: production
+      server: https://kubernetes.default.svc
+
+  roles:
+    - name: dev-team
+      description: Limited development access
+      policies:
+        - p, proj:sre-project:dev-team, applications, get, sre-project/*, allow
+        - p, proj:sre-project:dev-team, applications, sync, sre-project/*dev*, allow
+      groups:
+        - sre-developers
+
+    - name: sre-team
+      description: Full SRE access
+      policies:
+        - p, proj:sre-project:sre-team, applications, *, sre-project/*, allow
+        - p, proj:sre-project:sre-team, repositories, *, *, allow
+      groups:
+        - sre-admins
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Secret
